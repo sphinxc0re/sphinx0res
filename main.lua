@@ -37,11 +37,18 @@ end
 
 
 
-function OnChunkAvailable(World, ChunkX, ChunkZ)
+function OnChunkAvailable(World, ChunkX, ChunkY)
   World:ForEachBlockEntityInChunk(ChunkX, ChunkY,
     function(a_BlockEntity)
           local BlockType = a_BlockEntity:GetBlockType();
-          
+            for i = 0, g_NumOres do
+              if (Blocktype == g_Ores[i])
+                local PosX = a_BlockEntity:GetPosX()
+                local PosY = a_BlockEntity:GetPosY()
+                local PosZ = a_BlockEntity:GetPosZ()
+                LOG("Ore at " .. PosX .. ", " .. PosY .. ", " .. PosZ)
+              end
+            end
         )
     )
 end
