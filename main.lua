@@ -21,7 +21,12 @@ function Initialize(Plugin)
 	Plugin:SetVersion(1)
 	
 	-- Hooks
-  cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_AVAILABLE, OnChunkAvailable)
+  cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
+  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
+  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_SPAWNED, OnPlayerSpawned)
+  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
+  
+  
 	
 	PLUGIN = Plugin -- NOTE: only needed if you want OnDisable() to use GetName() or something like that
 	
@@ -31,27 +36,45 @@ function Initialize(Plugin)
 	return true
 end
 
+
+
+
+
 function OnDisable()
 	LOG(PLUGIN:GetName() .. " is shutting down...")
 end
 
 
 
-function OnChunkAvailable(World, ChunkX, ChunkY)
-  World:ForEachBlockEntityInChunk(ChunkX, ChunkY,
-    function(a_BlockEntity)
-          local BlockType = a_BlockEntity:GetBlockType();
-            for i = 0, g_NumOres do
-              if (Blocktype == g_Ores[i])
-                local PosX = a_BlockEntity:GetPosX()
-                local PosY = a_BlockEntity:GetPosY()
-                local PosZ = a_BlockEntity:GetPosZ()
-                LOG("Ore at " .. PosX .. ", " .. PosY .. ", " .. PosZ)
+
+
+
+function OnChunkGenerated(World, ChunkX, ChunkZ, ChunkDesc)
+  Chunk0 = cBlockArea()
+  ChunkDesc:ReadBlockArea(Chunk0, 0, 14, 0, (ChunkDesc:GetMaxHeight()), 0, 14)
+  -- LOG("READ CHUNK")
+  for y = 0, ChunkDesc:GetMaxHeight() do
+    for x = 0, 14 do
+      for z = 0, 14 do
+        local btype = Chunk0:GetBlockType(x, y, z)
+        for n = 0, g_NumOres do
+          if btype == g_Ores[n] then
+            -- LOG("Ore found at " .. x .. " " .. y .. " " .. z .. " ")
+            World:ForEachPlayer(
+              function(Player)
+                local ClientHandle = Player:GetClientHandle()
+                if not HasAir(World, x, y, z) then
+                  Chunk0:SetBlockType(x, y, z, 0)
+                end
               end
-            end
-        )
-    )
+            )
+          end
+        end
+      end
+    end
+  end
 end
+
 
 
 
