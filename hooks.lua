@@ -29,4 +29,6 @@ function OnPlayerBreakingBlock(Player, BlockX, BlockY, BlockZ, BlockFace, BlockT
   World:SetBlock(BlockX, BlockY, BlockZ + 1, DeobBlockArea:GetRelBlockType(RelX, RelY, RelZ + 1), DeobBlockArea:GetRelBlockMeta(RelX, RelY, RelZ + 1))
   World:SetBlock(BlockX, BlockY, BlockZ - 1, DeobBlockArea:GetRelBlockType(RelX, RelY, RelZ - 1), DeobBlockArea:GetRelBlockMeta(RelX, RelY, RelZ - 1))
   
+  
+  
 end
