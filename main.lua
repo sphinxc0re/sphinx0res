@@ -1,7 +1,5 @@
 
 g_Ores = {
-E_BLOCK_COAL_ORE,
-E_BLOCK_IRON_ORE,
 E_BLOCK_GOLD_ORE,
 E_BLOCK_DIAMOND_ORE,
 E_BLOCK_REDSTONE_ORE,
@@ -17,7 +15,7 @@ PLUGIN = nil
 
 
 function Initialize(Plugin)
-	Plugin:SetName("SphinxOrbs")
+	Plugin:SetName("SphinxOres")
 	Plugin:SetVersion(1)
 	
 	-- Hooks

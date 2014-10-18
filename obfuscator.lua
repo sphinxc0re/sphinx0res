@@ -17,7 +17,7 @@ function ObfuscateChunk(ChunkX, ChunkZ, ChunkDesc)
   end
   cFile:CreateFolder("SporeSchema")
   ChunkBlockArea:SaveToSchematicFile("SporeSchema/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic")
-  LOG("Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
 end
 
 
@@ -31,7 +31,27 @@ function HasAir(BlockArea, X, Y, Z)
       cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y + 1, Z)) or
       cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y - 1, Z)) or
       cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z + 1)) or
-      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z - 1))) then
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z - 1)) or
+      
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y + 1, Z - 1)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y - 1, Z - 1)) or
+      
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y + 1, Z + 1)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y - 1, Z + 1)) or
+      
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X - 1, Y + 1, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X - 1, Y - 1, Z)) or
+      
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X + 1, Y + 1, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X + 1, Y - 1, Z)) or
+      
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X + 2, Y, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X - 2, Y, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y + 2, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y - 2, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z + 2)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z - 2))     
+      ) then
       return true
   end
     return false
