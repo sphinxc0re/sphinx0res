@@ -9,13 +9,30 @@ function ObfuscateChunk(ChunkX, ChunkZ, ChunkDesc)
   for RelY = 0, ChunkDesc:GetMaxHeight() do
     for RelX = 0, 15 do
       for RelZ = 0, 15 do
-        if not HasAir(ChunkBlockArea, RelX, RelY, RelZ) then
-          ChunkBlockArea:SetRelBlockType(RelX, RelY, RelZ, g_Ores[math.random(1, g_NumOres)])
+        if not HasAir(ChunkDesc, RelX, RelY, RelZ) then
+          ChunkDesc:SetBlockType(RelX, RelY, RelZ, g_Ores[math.random(1, g_NumOres)])
         end
       end
     end
   end
   cFile:CreateFolder("SporeSchema")
   ChunkBlockArea:SaveToSchematicFile("SporeSchema/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic")
-  LOG("Saved obfuscated chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  LOG("Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+end
+
+
+
+
+-- Thanks to STR_Warrior for this function
+function HasAir(BlockArea, X, Y, Z)
+  if (
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X + 1, Y, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X - 1, Y, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y + 1, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y - 1, Z)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z + 1)) or
+      cBlockInfo:IsTransparent(BlockArea:GetBlockType(X, Y, Z - 1))) then
+      return true
+  end
+    return false
 end

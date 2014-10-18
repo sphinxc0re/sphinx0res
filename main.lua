@@ -22,9 +22,7 @@ function Initialize(Plugin)
 	
 	-- Hooks
   cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
-  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
-  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_SPAWNED, OnPlayerSpawned)
-  --cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
+  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
   
   
 	
@@ -42,29 +40,4 @@ end
 
 function OnDisable()
 	LOG(PLUGIN:GetName() .. " is shutting down...")
-end
-
-
-
-
-
-
-function OnChunkGenerated(World, ChunkX, ChunkZ, ChunkDesc)
-  ObfuscateChunk(ChunkX, ChunkZ, ChunkDesc)
-end
-
-
-
--- Thanks to STR_Warrior for this function
-function HasAir(BlockArea, X, Y, Z)
-  if (
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X + 1, Y, Z)) or
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X - 1, Y, Z)) or
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X, Y + 1, Z)) or
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X, Y - 1, Z)) or
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X, Y, Z + 1)) or
-    cBlockInfo:IsTransparent(BlockArea:GetRelBlockType(X, Y, Z - 1))) then
-      return true
-  end
-    return false
 end
