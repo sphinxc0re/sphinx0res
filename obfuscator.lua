@@ -3,6 +3,7 @@
 -----------------------------------
 
 function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
+  cFile:CreateFolder(SCHEMFOLDER .. "/" .. World:GetName())
   ChunkBlockArea = cBlockArea()
   ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, (ChunkDesc:GetMaxHeight()), 0, 15)
   ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
