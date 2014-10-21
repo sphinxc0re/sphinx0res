@@ -53,7 +53,7 @@ end
 
 
 function IsObfuscated(ChunkX, ChunkZ)
-  return cFile:Exists("" .. SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ .. "")
+  return cFile:Exists(SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
 end
 
 
