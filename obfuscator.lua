@@ -15,19 +15,19 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   
   if not ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, World:GetName()) then
     LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) and not IsObfuscated(ChunkX + 1, ChunkZ) then
       World:RegenerateChunk(ChunkX + 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, World:GetName()) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, World:GetName()) and not IsObfuscated(ChunkX - 1, ChunkZ) then
       World:RegenerateChunk(ChunkX - 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, World:GetName()) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, World:GetName()) and not IsObfuscated(ChunkX, ChunkZ + 1) then
       World:RegenerateChunk(ChunkX, ChunkZ + 1)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, World:GetName()) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, World:GetName()) and not IsObfuscated(ChunkX, ChunkZ - 1) then
       World:RegenerateChunk(ChunkX, ChunkZ - 1)
     end
     return
@@ -42,8 +42,19 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
       end
     end
   end
+  SetObfuscated(World:GetName(), ChunkX, ChunkZ)
 end
 
+
+
+function SetObfuscated(WorldName, ChunkX, ChunkZ)
+  cFile:Copy(GetSchematicFileName(WorldName, ChunkX, ChunkZ), SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+end
+
+
+function IsObfuscated(ChunkX, ChunkZ)
+  return cFile.Exists(SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+end
 
 
 
