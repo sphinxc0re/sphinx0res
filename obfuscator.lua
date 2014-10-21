@@ -7,9 +7,10 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   ChunkBlockArea = cBlockArea()
   ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, (ChunkDesc:GetMaxHeight()), 0, 15)
   ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
-  LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  ---LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
   WorldFolderContents = cFile:GetFolderContents(SCHEMFOLDER .. "/" .. World:GetName())
   if #WorldFolderContents < 5 then
+    LOG(#WorldFolderContents)
     return
   end
   
