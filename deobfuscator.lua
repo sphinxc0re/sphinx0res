@@ -9,7 +9,7 @@ end
 
 function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
     BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
-    ChunkBlockarea = cBlockArea()
+    local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
     RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
     return ChunkBlockArea:GetRelBlockMeta(RelX, RelY, RelZ)
@@ -19,16 +19,17 @@ end
 
 function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
     BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
-    ChunkBlockarea = cBlockArea()
+    local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
     RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
+    -- print(RelX, RelY, RelZ) -- For testing purpose
     return ChunkBlockArea:GetRelBlockType(RelX, RelY, RelZ)
 end
 
 
 function GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
-  x = 0
-  z = 0
+  local x = 0
+  local z = 0
   
   if (RelX < 0) then
     x = x - 1
