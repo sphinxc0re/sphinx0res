@@ -66,8 +66,8 @@ function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName)
-      then
-        return true
+  then
+    return true
   else
     return false
   end

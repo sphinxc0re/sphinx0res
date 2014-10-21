@@ -3,11 +3,17 @@
 -----------------------------------
 
 function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
-  cFile:CreateFolder(SCHEMFOLDER .. "/" .. World:GetName())
-  ChunkBlockArea = cBlockArea()
-  ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, (ChunkDesc:GetMaxHeight()), 0, 15)
-  ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
-  LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  if not cFile:IsFolder(SCHEMFOLDER .. "/" .. World:GetName()) then
+    cFile:CreateFolder(SCHEMFOLDER .. "/" .. World:GetName())
+  end
+  
+  if not cFile:Exists(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ)) then
+    ChunkBlockArea = cBlockArea()
+    ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, 255, 0, 15)
+    ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
+    -- LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  end
+  
   WorldFolderContents = cFile:GetFolderContents(SCHEMFOLDER .. "/" .. World:GetName())
   if #WorldFolderContents < 6 then
     return
@@ -15,25 +21,31 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   
   if not ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, World:GetName()) then
     LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) and not IsObfuscated(ChunkX + 1, ChunkZ) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX + 1, ChunkZ) then
       World:RegenerateChunk(ChunkX + 1, ChunkZ)
+      SetObfuscated(World:GetName(), ChunkX + 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, World:GetName()) and not IsObfuscated(ChunkX - 1, ChunkZ) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX - 1, ChunkZ) then
       World:RegenerateChunk(ChunkX - 1, ChunkZ)
+      SetObfuscated(World:GetName(), ChunkX - 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, World:GetName()) and not IsObfuscated(ChunkX, ChunkZ + 1) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX, ChunkZ + 1) then
       World:RegenerateChunk(ChunkX, ChunkZ + 1)
+      SetObfuscated(World:GetName(), ChunkX, ChunkZ + 1)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, World:GetName()) and not IsObfuscated(ChunkX, ChunkZ - 1) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX, ChunkZ - 1) then
       World:RegenerateChunk(ChunkX, ChunkZ - 1)
+      SetObfuscated(World:GetName(), ChunkX, ChunkZ - 1)
     end
+
     return
   end
   
-  for RelY = 0, ChunkDesc:GetMaxHeight() do
+  LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
+  for RelY = 0, 255 do
     for RelX = 0, 15 do
       for RelZ = 0, 15 do
         if not HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ) then
@@ -42,18 +54,18 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
       end
     end
   end
-  SetObfuscated(World:GetName(), ChunkX, ChunkZ)
 end
 
 
 
 function SetObfuscated(WorldName, ChunkX, ChunkZ)
-  cFile:Copy(GetSchematicFileName(WorldName, ChunkX, ChunkZ), SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+  cFile:Copy(GetSchematicFileName(WorldName, ChunkX, ChunkZ), SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+  LOG("[" .. PLUGIN:GetName() .. "] Chunk is going to be obfuscated X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
 
-function IsObfuscated(ChunkX, ChunkZ)
-  return cFile:Exists(SCHEMFOLDER .. "/OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+function IsObfuscated(WorldName, ChunkX, ChunkZ)
+  return cFile:Exists(SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
 end
 
 
