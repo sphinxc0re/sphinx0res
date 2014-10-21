@@ -7,14 +7,14 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   ChunkBlockArea = cBlockArea()
   ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, (ChunkDesc:GetMaxHeight()), 0, 15)
   ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
-  ---LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
+  LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
   WorldFolderContents = cFile:GetFolderContents(SCHEMFOLDER .. "/" .. World:GetName())
-  if #WorldFolderContents < 5 then
-    LOG(#WorldFolderContents)
+  if #WorldFolderContents < 6 then
     return
   end
   
   if not ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, World:GetName()) then
+    LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
     if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) then
       World:RegenerateChunk(ChunkX + 1, ChunkZ)
     end
