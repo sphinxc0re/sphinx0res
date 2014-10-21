@@ -9,7 +9,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
   LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
   WorldFolderContents = cFile:GetFolderContents(SCHEMFOLDER .. "/" .. World:GetName())
-  if #WorldFolderContent < 5 then
+  if #WorldFolderContents < 5 then
     return
   end
   
@@ -32,8 +32,6 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
     return
   end
   
-  -- if I don't have all neigbors: for every neigbor: if neigbor hasallneigbors then regenerate him 
-  -- LOG("READ CHUNK")
   for RelY = 0, ChunkDesc:GetMaxHeight() do
     for RelX = 0, 15 do
       for RelZ = 0, 15 do
