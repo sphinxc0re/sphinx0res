@@ -16,14 +16,22 @@ PlayerPos = {}
 
 PLUGIN = nil
 
+PLUGFOLDER = "SphinxOres"
+SCHEMFOLDER = PLUGFOLDER .. "/Schema"
+
 
 function Initialize(Plugin)
 	Plugin:SetName("SphinxOres")
 	Plugin:SetVersion(1)
 	
+  cFile:CreateFolder(PLUGFOLDER)
+  cFile:CreateFolder(SCHEMFOLDER)
+  
+  
+  
 	-- Hooks
   cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
-  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
+  -- cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
   
   
 	
@@ -38,7 +46,31 @@ end
 
 
 
-
 function OnDisable()
 	LOG(PLUGIN:GetName() .. " is shutting down...")
 end
+
+
+
+function GetSchematicFileName(WorldName, ChunkX, ChunkZ)
+  return SCHEMFOLDER .. "/" .. WorldName .. "/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic"
+end
+
+
+function IsChunkGenerated(ChunkX, ChunkZ, WorldName)
+  return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
+end
+
+function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
+  if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) and
+      IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
+      IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
+      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName)
+      then
+        return true
+  else
+    return false
+  end
+end
+
+
