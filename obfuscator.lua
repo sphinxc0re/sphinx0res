@@ -51,6 +51,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
       end
     end
   end
+  LOG("[" .. PLUGIN:GetName() .. "] Obfuscated chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
 
@@ -70,24 +71,13 @@ end
 -- Thanks to STR_Warrior for this function
 function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ)
   local WorldName = World:GetName()
-  
-    for CordX = -1, 1 do
-      for CordZ = -1, 1 do
-        for CordY = -1, 1 do
-          if cBlockInfo:IsTransparent(GetDeopBlockType(RelX + CordX, RelY + CordY, RelZ + CordZ, ChunkX, ChunkZ, WorldName)) then
-            return true
-          end
-        end
-      end
-    end
-    
   if (      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 2, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 2, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 2, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ + 2, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ - 2, ChunkX, ChunkZ, WorldName))     
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName)) or
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName)) or
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ + 1, ChunkX, ChunkZ, WorldName)) or
+      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ - 1, ChunkX, ChunkZ, WorldName))     
       ) then
       return true
   end

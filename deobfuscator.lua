@@ -42,8 +42,8 @@ function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
-    RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
-    return ChunkBlockArea:GetRelBlockMeta(RelX, RelY, RelZ)
+    local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
+    return ChunkBlockArea:GetRelBlockMeta(RightRelX, RelY, RightRelZ)
 end
 
 
@@ -52,9 +52,8 @@ function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
-    RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
-    print("BlockType", ChunkX, ChunkZ, RelX, RelY, RelZ) -- For testing purpose
-    return ChunkBlockArea:GetRelBlockType(RelX, RelY, RelZ)
+    local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
+    return ChunkBlockArea:GetRelBlockType(RightRelX, RelY, RightRelZ)
 end
 
 
