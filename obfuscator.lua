@@ -3,42 +3,39 @@
 -----------------------------------
 
 function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
-  if not cFile:IsFolder(SCHEMFOLDER .. "/" .. World:GetName()) then
-    cFile:CreateFolder(SCHEMFOLDER .. "/" .. World:GetName())
+  local WorldName = World:GetName()
+  if not cFile:IsFolder(SCHEMFOLDER .. "/" .. WorldName) then
+    cFile:CreateFolder(SCHEMFOLDER .. "/" .. WorldName)
   end
   
-  if not cFile:Exists(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ)) then
+  if not IsChunkGenerated(WorldName, ChunkX, ChunkZ) then
     local ChunkBlockArea = cBlockArea()
     ChunkDesc:ReadBlockArea(ChunkBlockArea, 0, 15, 0, 255, 0, 15)
-    ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(World:GetName(), ChunkX, ChunkZ))
+    ChunkBlockArea:SaveToSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
     -- LOG("[" .. PLUGIN:GetName() .. "] Saved chunk ".. ChunkX .. "#" .. ChunkZ .." to drive!")
   end
   
-  WorldFolderContents = cFile:GetFolderContents(SCHEMFOLDER .. "/" .. World:GetName())
-  if #WorldFolderContents < 6 then
-    return
-  end
   
-  if not ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, World:GetName()) then
-    LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX + 1, ChunkZ) then
+  if not ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName) then
+    -- LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, WorldName) and not IsObfuscated(WorldName, ChunkX + 1, ChunkZ) then
       World:RegenerateChunk(ChunkX + 1, ChunkZ)
-      SetObfuscated(World:GetName(), ChunkX + 1, ChunkZ)
+      SetObfuscated(WorldName, ChunkX + 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX - 1, ChunkZ) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, WorldName) and not IsObfuscated(WorldName, ChunkX - 1, ChunkZ) then
       World:RegenerateChunk(ChunkX - 1, ChunkZ)
-      SetObfuscated(World:GetName(), ChunkX - 1, ChunkZ)
+      SetObfuscated(WorldName, ChunkX - 1, ChunkZ)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX, ChunkZ + 1) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, WorldName) and not IsObfuscated(WorldName, ChunkX, ChunkZ + 1) then
       World:RegenerateChunk(ChunkX, ChunkZ + 1)
-      SetObfuscated(World:GetName(), ChunkX, ChunkZ + 1)
+      SetObfuscated(WorldName, ChunkX, ChunkZ + 1)
     end
     
-    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, World:GetName()) and not IsObfuscated(World:GetName(), ChunkX, ChunkZ - 1) then
+    if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, WorldName) and not IsObfuscated(WorldName, ChunkX, ChunkZ - 1) then
       World:RegenerateChunk(ChunkX, ChunkZ - 1)
-      SetObfuscated(World:GetName(), ChunkX, ChunkZ - 1)
+      SetObfuscated(WorldName, ChunkX, ChunkZ - 1)
     end
 
     return
