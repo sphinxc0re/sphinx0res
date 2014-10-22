@@ -72,10 +72,6 @@ function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) and
-      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) and
-      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName)
       
   then
     return true
@@ -90,10 +86,6 @@ function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) or
       IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) or
       IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) or
-      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName) or
-      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) or
-      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) or
-      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName)
   then
     return true
   else
