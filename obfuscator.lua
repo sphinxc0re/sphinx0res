@@ -37,16 +37,16 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
       World:RegenerateChunk(ChunkX, ChunkZ - 1)
       SetObfuscated(WorldName, ChunkX, ChunkZ - 1)
     end
-
+    
     return
   end
   
   LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
-  for RelY = 2, 253 do
-    for RelX = 0, 15 do
-      for RelZ = 0, 15 do
-        if not HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ) then
-          ChunkDesc:SetBlockType(RelX, RelY, RelZ, g_Ores[math.random(1, g_NumOres)])
+  for ForCoordY = 2, 253 do
+    for ForCoordX = 0, 15 do
+      for ForCoordZ = 0, 15 do
+        if not HasAir(World, ForCoordX, ForCoordY, ForCoordZ, ChunkX, ChunkZ) then
+          ChunkDesc:SetBlockType(ForCoordX, ForCoordY, ForCoordZ, g_Ores[math.random(1, g_NumOres)])
         end
       end
     end
@@ -57,7 +57,7 @@ end
 
 function SetObfuscated(WorldName, ChunkX, ChunkZ)
   cFile:Copy(GetSchematicFileName(WorldName, ChunkX, ChunkZ), SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
-  LOG("[" .. PLUGIN:GetName() .. "] Chunk is going to be obfuscated X: " .. ChunkX .. "  Z: " .. ChunkZ)
+  -- LOG("[" .. PLUGIN:GetName() .. "] Chunk is going to be obfuscated X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
 
@@ -70,26 +70,18 @@ end
 -- Thanks to STR_Warrior for this function
 function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ)
   local WorldName = World:GetName()
-  if (
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ + 1, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ - 1, ChunkX, ChunkZ, WorldName)) or
-      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 1, RelZ - 1, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 1, RelZ - 1, ChunkX, ChunkZ, WorldName)) or
-      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 1, RelZ + 1, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 1, RelZ + 1, ChunkX, ChunkZ, WorldName)) or
-      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 1, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 1, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 1, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 1, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      
+  
+    for CordX = -1, 1 do
+      for CordZ = -1, 1 do
+        for CordY = -1, 1 do
+          if cBlockInfo:IsTransparent(GetDeopBlockType(RelX + CordX, RelY + CordY, RelZ + CordZ, ChunkX, ChunkZ, WorldName)) then
+            return true
+          end
+        end
+      end
+    end
+    
+  if (      
       cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
       cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 2, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
       cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 2, RelZ, ChunkX, ChunkZ, WorldName)) or

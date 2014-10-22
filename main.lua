@@ -52,25 +52,55 @@ end
 
 
 
+
 function GetSchematicFileName(WorldName, ChunkX, ChunkZ)
   return SCHEMFOLDER .. "/" .. WorldName .. "/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic"
 end
+
+
 
 
 function IsChunkGenerated(ChunkX, ChunkZ, WorldName)
   return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
 end
 
+
+
+
 function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
   if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName)
+      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) and
+      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName) and
+      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) and
+      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) and
+      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName)
+      
   then
     return true
   else
     return false
   end
 end
+
+
+function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
+  if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) or
+      IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) or
+      IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) or
+      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) or
+      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName) or
+      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) or
+      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) or
+      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName)
+  then
+    return true
+  else
+    return false
+  end
+end
+
+
 
 
