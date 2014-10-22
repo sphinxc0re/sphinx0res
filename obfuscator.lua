@@ -42,7 +42,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   end
   
   LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
-  for ForCoordY = 1, 254 do
+  for ForCoordY = 1, ChunkDesc:GetMaxHeight() do
     for ForCoordX = 0, 15 do
       for ForCoordZ = 0, 15 do
         if not HasAir(World, ForCoordX, ForCoordY, ForCoordZ, ChunkX, ChunkZ) then
