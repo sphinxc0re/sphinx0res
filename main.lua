@@ -12,7 +12,36 @@ E_BLOCK_EMERALD_ORE
 
 g_NumOres = #g_Ores
 
-PlayerPos = {}
+g_RelativeOffset = {
+  {1, 0, 0},
+  {0, 1, 0},
+  {0, 0, 1},
+  {-1, 0, 0},
+  {0, -1, 0},
+  {0, 0, -1},
+  {2, 0, 0},
+  {0, 2, 0},
+  {0, 0, 2},
+  {-2, 0, 0},
+  {0, -2, 0},
+  {0, 0, -2},
+  {1, 1, 0},
+  {1, -1, 0},
+  {-1, 1, 0},
+  {-1, -1, 0},
+  {0, 1, 1},
+  {0, -1, 1},
+  {0, 1, -1},
+  {0, -1, -1},
+  {1, 0, 1},
+  {-1, 0, 1},
+  {1, 0, -1},
+  {-1, 0, -1}
+}
+
+g_NumRelativeOffset = #g_RelativeOffset
+
+g_PlayerChunkCaches = {}
 
 PLUGIN = nil
 
@@ -65,7 +94,11 @@ function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
   if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
       IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName)
+      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) and
+      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) and
+      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName) and
+      IsChunkGenerated(ChunkX - , ChunkZ + 1, WorldName) and
+      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName)
   then
     return true
   else
