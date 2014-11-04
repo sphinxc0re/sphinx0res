@@ -18,20 +18,14 @@ function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, Block
   DeobBlockArea:SetRelBlockTypeMeta(RelX, RelY, RelZ, 0, 0)
   DeobBlockArea:SaveToSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
   
-  
-  World:SetBlock(BlockX + 1, BlockY, BlockZ, GetDeopBlockType(RelX + 1, RelY, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX + 1, RelY, RelZ, ChunkX, ChunkZ, WorldName))
-  World:SetBlock(BlockX - 1, BlockY, BlockZ, GetDeopBlockType(RelX - 1, RelY, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX - 1, RelY, RelZ, ChunkX, ChunkZ, WorldName))
-  
-  World:SetBlock(BlockX, BlockY + 1, BlockZ, GetDeopBlockType(RelX, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName))
-  World:SetBlock(BlockX, BlockY - 1, BlockZ, GetDeopBlockType(RelX, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName))
-  
-  World:SetBlock(BlockX, BlockY, BlockZ + 1, GetDeopBlockType(RelX, RelY, RelZ + 1, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX, RelY, RelZ + 1, ChunkX, ChunkZ, WorldName))
-  World:SetBlock(BlockX, BlockY, BlockZ - 1, GetDeopBlockType(RelX, RelY, RelZ - 1, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX, RelY, RelZ - 1, ChunkX, ChunkZ, WorldName))
-  
-  
-  
-  
-  
+    for CordX = -1, 1 do
+      for CordZ = -1, 1 do
+        for CordY = -1, 1 do
+          World:SetBlock(BlockX + CordX, BlockY + CordY, BlockZ + CordZ, GetDeopBlockType(RelX + CordX, RelY + CordY, RelZ + CordZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX + CordX, RelY + CordY, RelZ + CordZ, ChunkX, ChunkZ, WorldName))
+        end
+      end
+    end
+    
   World:SetBlock(BlockX + 2, BlockY, BlockZ, GetDeopBlockType(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName))
   World:SetBlock(BlockX - 2, BlockY, BlockZ, GetDeopBlockType(RelX - 2, RelY, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX - 2, RelY, RelZ, ChunkX, ChunkZ, WorldName))
   
@@ -45,22 +39,21 @@ end
 
 
 function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
-    BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
+    local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
-    RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
-    return ChunkBlockArea:GetRelBlockMeta(RelX, RelY, RelZ)
+    local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
+    return ChunkBlockArea:GetRelBlockMeta(RightRelX, RelY, RightRelZ)
 end
 
 
 
 function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
-    BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
+    local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local ChunkBlockArea = cBlockArea()
     ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
-    RelX, RelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
-    -- print(RelX, RelY, RelZ) -- For testing purpose
-    return ChunkBlockArea:GetRelBlockType(RelX, RelY, RelZ)
+    local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
+    return ChunkBlockArea:GetRelBlockType(RightRelX, RelY, RightRelZ)
 end
 
 
