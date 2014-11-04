@@ -72,5 +72,4 @@ function cSmallChunkCache:GetRelToOrigin(a_RelX, a_RelZ)
       return self.NorthWestChunk
     end
   end
- 
 end

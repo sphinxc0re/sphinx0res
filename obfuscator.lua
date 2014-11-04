@@ -71,15 +71,13 @@ end
 -- Thanks to STR_Warrior for this function
 function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ)
   local WorldName = World:GetName()
-  if (      
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX + 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX - 1, RelY, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY + 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY - 1, RelZ, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ + 1, ChunkX, ChunkZ, WorldName)) or
-      cBlockInfo:IsTransparent(GetDeopBlockType(RelX, RelY, RelZ - 1, ChunkX, ChunkZ, WorldName))     
-      ) then
+  
+  for i=1, g_NumRelativeOffset do
+    if cBlockInfo:IsTransparent(GetDeopBlockType(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName)) then
       return true
+    end
   end
+  
+  
     return false
 end
