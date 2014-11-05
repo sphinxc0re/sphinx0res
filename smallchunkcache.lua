@@ -47,7 +47,7 @@ end
 
 
 function cSmallChunkCache:GetRelToOrigin(a_RelX, a_RelZ)
-  if a_RelX == 0 && a_RelZ == 0 then
+  if a_RelX == 0 and a_RelZ == 0 then
     return self.MiddleChunk
   elseif a_RelX == 1 then
     if a_RelZ == 0 then
