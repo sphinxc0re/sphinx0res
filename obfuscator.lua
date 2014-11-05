@@ -20,22 +20,18 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
     -- LOG("[" .. PLUGIN:GetName() .. "] Executing flower alogrithm!")
     if ChunkHasAllDirectNeigborsGenerated(ChunkX + 1, ChunkZ, WorldName) and not IsObfuscated(WorldName, ChunkX + 1, ChunkZ) then
       World:RegenerateChunk(ChunkX + 1, ChunkZ)
-      SetObfuscated(WorldName, ChunkX + 1, ChunkZ)
     end
     
     if ChunkHasAllDirectNeigborsGenerated(ChunkX - 1, ChunkZ, WorldName) and not IsObfuscated(WorldName, ChunkX - 1, ChunkZ) then
       World:RegenerateChunk(ChunkX - 1, ChunkZ)
-      SetObfuscated(WorldName, ChunkX - 1, ChunkZ)
     end
     
     if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ + 1, WorldName) and not IsObfuscated(WorldName, ChunkX, ChunkZ + 1) then
       World:RegenerateChunk(ChunkX, ChunkZ + 1)
-      SetObfuscated(WorldName, ChunkX, ChunkZ + 1)
     end
     
     if ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ - 1, WorldName) and not IsObfuscated(WorldName, ChunkX, ChunkZ - 1) then
       World:RegenerateChunk(ChunkX, ChunkZ - 1)
-      SetObfuscated(WorldName, ChunkX, ChunkZ - 1)
     end
     
     return
@@ -51,6 +47,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
       end
     end
   end
+  SetObfuscated(WorldName, ChunkX, ChunkZ)
   LOG("[" .. PLUGIN:GetName() .. "] Obfuscated chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
