@@ -37,11 +37,13 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
     return
   end
   
+  local SmallChunkCache = cSmallChunkCache:NewFromChunkPos(World, ChunkX, ChunkZ)
+  
   LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
   for RelY = 2, (ChunkDesc:GetMaxHeight() - 2) do
     for RelX = 0, 15 do
       for RelZ = 0, 15 do
-        if not HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ) then
+        if not HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ, SmallChunkCache) then
           ChunkDesc:SetBlockType(RelX, RelY, RelZ, g_Ores[math.random(1, g_NumOres)])
         end
       end
@@ -65,16 +67,13 @@ end
 
 
 
--- Thanks to STR_Warrior for this function
-function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ)
+function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ, SmallChunkCache)
   local WorldName = World:GetName()
   
   for i=1, g_NumRelativeOffset do
-    if cBlockInfo:IsTransparent(GetDeopBlockType(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName)) then
+    if cBlockInfo:IsTransparent(GetDeopBlockType(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName, SmallChunkCache)) then
       return true
     end
   end
-  
-  
-    return false
+  return false
 end

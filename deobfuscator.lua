@@ -25,20 +25,22 @@ function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, Block
 end
 
 
-function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
+function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName, SmallChunkCache)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
-    local ChunkBlockArea = cBlockArea()
-    ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
+    local RelChunkX = BlockChunkX - ChunkX
+    local RelChunkZ = BlockChunkZ - ChunkZ
+    local ChunkBlockArea = SmallChunkCache:GetRelToOrigin(RelChunkX, RelChunkZ)
     local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
     return ChunkBlockArea:GetRelBlockMeta(RightRelX, RelY, RightRelZ)
 end
 
 
 
-function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName)
+function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName, SmallChunkCache)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
-    local ChunkBlockArea = cBlockArea()
-    ChunkBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, BlockChunkX, BlockChunkZ))
+    local RelChunkX = BlockChunkX - ChunkX
+    local RelChunkZ = BlockChunkZ - ChunkZ
+    local ChunkBlockArea = SmallChunkCache:GetRelToOrigin(RelChunkX, RelChunkZ)
     local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
     return ChunkBlockArea:GetRelBlockType(RightRelX, RelY, RightRelZ)
 end
