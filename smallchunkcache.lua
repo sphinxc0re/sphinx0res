@@ -2,7 +2,12 @@
 
 
 
+
+
 cSmallChunkCache = {}
+
+
+
 
 
 function cSmallChunkCache:new(a_Obj)
@@ -27,6 +32,8 @@ end
 
 
 
+
+
 function cSmallChunkCache:NewFromChunkPos(a_world, a_chunkX, a_chunkZ)
     local a_Obj = cSmallChunkCache:new()
     local WorldName = a_world:GetName()
@@ -45,6 +52,9 @@ function cSmallChunkCache:NewFromChunkPos(a_world, a_chunkX, a_chunkZ)
     a_Obj.NorthWestChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX - 1, a_chunkZ - 1))
   return a_Obj
 end
+
+
+
 
 
 function cSmallChunkCache:GetRelToOrigin(a_RelX, a_RelZ)
@@ -74,3 +84,4 @@ function cSmallChunkCache:GetRelToOrigin(a_RelX, a_RelZ)
     end
   end
 end
+

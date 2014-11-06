@@ -2,6 +2,10 @@
 --------- Deobfuscator-----------------
 ---------------------------------------
 
+
+
+
+
 function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)
   local RelX = BlockX % 16
   local ChunkX = math.floor((BlockX - RelX) / 16)
@@ -25,6 +29,9 @@ function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, Block
 end
 
 
+
+
+
 function GetDeopBlockMeta(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName, SmallChunkCache)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local RelChunkX = BlockChunkX - ChunkX
@@ -36,6 +43,8 @@ end
 
 
 
+
+
 function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName, SmallChunkCache)
     local BlockChunkX, BlockChunkZ = GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
     local RelChunkX = BlockChunkX - ChunkX
@@ -44,6 +53,9 @@ function GetDeopBlockType(RelX, RelY, RelZ, ChunkX, ChunkZ, WorldName, SmallChun
     local RightRelX, RightRelZ = GetRelCoordsFromFalseRelCoords(RelX, RelZ)
     return ChunkBlockArea:GetRelBlockType(RightRelX, RelY, RightRelZ)
 end
+
+
+
 
 
 function GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
@@ -69,6 +81,9 @@ function GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
 end
 
 
+
+
+
 function GetRelCoordsFromFalseRelCoords(RelX, RelZ)
   if (RelX < 0) then
     RelX = RelX + 16
@@ -84,3 +99,4 @@ function GetRelCoordsFromFalseRelCoords(RelX, RelZ)
   
   return RelX, RelZ
 end
+

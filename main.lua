@@ -1,3 +1,11 @@
+------------------------------------------------
+-- SphinxOres - Cause the Sphinx hides his ores!
+-- An orebfuscator for MCServer
+------------------------------------------------
+
+
+
+
 
 g_Ores = {
 E_BLOCK_IRON_ORE,
@@ -11,6 +19,10 @@ E_BLOCK_EMERALD_ORE
 }
 
 g_NumOres = #g_Ores
+
+
+
+
 
 g_RelativeOffset = {
   {1, 0, 0},
@@ -41,13 +53,27 @@ g_RelativeOffset = {
 
 g_NumRelativeOffset = #g_RelativeOffset
 
+
+
+
+
 g_PlayerChunkCaches = {}
+
+
+
 
 
 PLUGIN = nil
 
+
+
+
+
 PLUGFOLDER = "SphinxOres"
 SCHEMFOLDER = PLUGFOLDER .. "/Schema"
+
+
+
 
 
 function Initialize(Plugin)
@@ -76,9 +102,11 @@ end
 
 
 
+
 function OnDisable()
 	LOG(PLUGIN:GetName() .. " is shutting down...")
 end
+
 
 
 
@@ -90,9 +118,11 @@ end
 
 
 
+
 function IsChunkGenerated(ChunkX, ChunkZ, WorldName)
   return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
 end
+
 
 
 
@@ -114,6 +144,9 @@ function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
 end
 
 
+
+
+
 function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
   if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) or
       IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) or
@@ -129,7 +162,4 @@ function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
     return false
   end
 end
-
-
-
 

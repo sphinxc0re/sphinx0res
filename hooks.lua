@@ -1,18 +1,32 @@
 
 -- ChunkGenerated
+
+
+
+
+
 function OnChunkGenerated(World, ChunkX, ChunkZ, ChunkDesc)
   ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
 end
+
+
+
 
 -- PlayerBreakingBlock
 function OnPlayerBreakingBlock(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)
   Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)
 end
 
+
+
+
 -- PlayerPlacingBlock
 function OnPlayerPlacingBlock()
   
 end
+
+
+
 
 -- PlayerMoving
 function OnPlayerMoving(Player, OldPosition, NewPosition)
@@ -29,3 +43,4 @@ function OnPlayerMoving(Player, OldPosition, NewPosition)
     g_PlayerChunkCaches[PlayerName]:NewFromChunkPos(World, ChunkX, ChunkZ)
   end
 end
+

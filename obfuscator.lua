@@ -2,6 +2,10 @@
 ----- OBFUSCATOR ------------------
 -----------------------------------
 
+
+
+
+
 function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   local WorldName = World:GetName()
   if not cFile:IsFolder(SCHEMFOLDER .. "/" .. WorldName) then
@@ -55,15 +59,22 @@ end
 
 
 
+
+
 function SetObfuscated(WorldName, ChunkX, ChunkZ)
   cFile:Copy(GetSchematicFileName(WorldName, ChunkX, ChunkZ), SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
   -- LOG("[" .. PLUGIN:GetName() .. "] Chunk is going to be obfuscated X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
 
+
+
+
 function IsObfuscated(WorldName, ChunkX, ChunkZ)
   return cFile:Exists(SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
 end
+
+
 
 
 
@@ -77,3 +88,4 @@ function HasAir(World, RelX, RelY, RelZ, ChunkX, ChunkZ, SmallChunkCache)
   end
   return false
 end
+
