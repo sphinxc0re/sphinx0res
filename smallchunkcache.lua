@@ -1,4 +1,4 @@
--- Implementation of the cPlayerChunkCache class
+-- Implementation of the cSmallChunkCache class
 
 
 
