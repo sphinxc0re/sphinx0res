@@ -41,15 +41,15 @@ function cSmallChunkCache:NewFromChunkPos(a_world, a_chunkX, a_chunkZ)
     a_Obj.OriginZ = a_chunkZ
     a_Obj.MiddleChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX, a_chunkZ))
     
+    a_Obj.SouthChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX, a_chunkZ + 1))
     a_Obj.NorthChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX, a_chunkZ - 1))
     a_Obj.EastChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX + 1, a_chunkZ))
-    a_Obj.SouthChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX, a_chunkZ + 1))
     a_Obj.WestChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX - 1, a_chunkZ))
     
     a_Obj.NorthEastChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX + 1, a_chunkZ - 1))
     a_Obj.SouthEastChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX + 1, a_chunkZ + 1))
-    a_Obj.SouthWestChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX - 1, a_chunkZ + 1))
     a_Obj.NorthWestChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX - 1, a_chunkZ - 1))
+    a_Obj.SouthWestChunk:LoadFromSchematicFile(GetSchematicFileName(WorldName, a_chunkX - 1, a_chunkZ + 1))
   return a_Obj
 end
 
