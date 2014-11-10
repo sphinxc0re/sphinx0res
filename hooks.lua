@@ -43,4 +43,3 @@ function OnPlayerMoving(Player, OldPosition, NewPosition)
     g_PlayerChunkCaches[PlayerName]:NewFromChunkPos(World, ChunkX, ChunkZ)
   end
 end
-

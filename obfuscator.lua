@@ -60,7 +60,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
   end
 
   local SmallChunkCache = cSmallChunkCache:NewFromChunkPos(World, ChunkX, ChunkZ)
-
+c
   -- LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
   for RelY = 2, (ChunkDesc:GetMaxHeight() - 2) do
     for RelX = 0, 15 do

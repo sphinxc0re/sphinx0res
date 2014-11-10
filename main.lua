@@ -1,7 +1,7 @@
-------------------------------------------------
--- SphinxOres - Cause the Sphinx hides his ores!
+-------------------------------------------------------
+-- SphinxOres - Because the Sphinx hides it's treasure!
 -- An orebfuscator for MCServer
-------------------------------------------------
+-------------------------------------------------------
 
 
 
