@@ -79,20 +79,20 @@ SCHEMFOLDER = PLUGFOLDER .. "/Schema"
 function Initialize(Plugin)
 	Plugin:SetName("SphinxOres")
 	Plugin:SetVersion(1)
-	
+
   cFile:CreateFolder(PLUGFOLDER)
   cFile:CreateFolder(SCHEMFOLDER)
-  
-  
-  
+
+
+
 	-- Hooks
   cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
   cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
-  -- cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
-  
-	
+  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
+  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_PLACING_BLOCK, OnPlayerPlacingBlock)
+
 	PLUGIN = Plugin -- NOTE: only needed if you want OnDisable() to use GetName() or something like that
-	
+
 	-- Command Bindings
 
 	LOG("Initialised " .. Plugin:GetName() .. " v." .. Plugin:GetVersion())
@@ -162,4 +162,3 @@ function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
     return false
   end
 end
-

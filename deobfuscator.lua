@@ -12,20 +12,22 @@ function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, Block
   local RelZ = BlockZ % 16
   local ChunkZ = math.floor((BlockZ - RelZ) / 16)
   local RelY = BlockY
-  
+
   local World = Player:GetWorld()
   local WorldName = World:GetName()
   local PlayerName = Player:GetName()
-  
+
   local DeobBlockArea = cBlockArea()
   local PlayerChunks = g_PlayerChunkCaches[PlayerName]
   DeobBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
-  
+
   DeobBlockArea:SetRelBlockTypeMeta(RelX, RelY, RelZ, 0, 0)
   DeobBlockArea:SaveToSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
-  
-    
-  World:SetBlock(BlockX + 2, BlockY, BlockZ, GetDeopBlockType(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName), GetDeopBlockMeta(RelX + 2, RelY, RelZ, ChunkX, ChunkZ, WorldName))
+
+  for i=1, g_NumRelativeOffset do
+    World:SetBlock(BlockX + g_RelativeOffset[i][1], BlockY + g_RelativeOffset[i][2], BlockZ + g_RelativeOffset[i][3], GetDeopBlockType(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName, PlayerChunks), GetDeopBlockMeta(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName, PlayerChunks))
+  end
+
 end
 
 
@@ -61,22 +63,22 @@ end
 function GetChunkCoordsFromRelBlockCoords(RelX, RelZ, ChunkX, ChunkZ)
   local x = 0
   local z = 0
-  
+
   if (RelX < 0) then
     x = x - 1
   elseif (RelX > 15) then
     x = x + 1
   end
-  
+
   if (RelZ < 0) then
     z = z - 1
   elseif (RelZ > 15) then
     z = z + 1
   end
-  
+
   ChunkX = ChunkX + x
   ChunkZ = ChunkZ + z
-  
+
   return ChunkX, ChunkZ
 end
 
@@ -90,13 +92,12 @@ function GetRelCoordsFromFalseRelCoords(RelX, RelZ)
   elseif (RelX > 15) then
     RelX = RelX - 16
   end
-  
+
   if (RelZ < 0) then
     RelZ = RelZ + 16
   elseif (RelZ > 15) then
     RelZ = RelZ - 16
   end
-  
+
   return RelX, RelZ
 end
-

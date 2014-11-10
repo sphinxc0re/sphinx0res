@@ -7,7 +7,7 @@
 
 
 function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
-  
+
   local WorldName = World:GetName()
   if not cFile:IsFolder(SCHEMFOLDER .. "/" .. WorldName) then
     cFile:CreateFolder(SCHEMFOLDER .. "/" .. WorldName)
@@ -61,7 +61,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
 
   local SmallChunkCache = cSmallChunkCache:NewFromChunkPos(World, ChunkX, ChunkZ)
 
-  LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
+  -- LOG("[" .. PLUGIN:GetName() .. "] Obfuscating chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
   for RelY = 2, (ChunkDesc:GetMaxHeight() - 2) do
     for RelX = 0, 15 do
       for RelZ = 0, 15 do
@@ -72,7 +72,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
     end
   end
   SetObfuscated(WorldName, ChunkX, ChunkZ)
-  LOG("[" .. PLUGIN:GetName() .. "] Obfuscated chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
+  -- LOG("[" .. PLUGIN:GetName() .. "] Obfuscated chunk X: " .. ChunkX .. "  Z: " .. ChunkZ)
 end
 
 
