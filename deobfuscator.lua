@@ -6,7 +6,8 @@
 
 
 
-function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)local RelX = BlockX % 16
+function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)
+    local RelX = BlockX % 16
     local ChunkX = math.floor((BlockX - RelX) / 16)
     local RelZ = BlockZ % 16
     local ChunkZ = math.floor((BlockZ - RelZ) / 16)
