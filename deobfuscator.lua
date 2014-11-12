@@ -8,17 +8,20 @@
 
 function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, BlockMeta)
     local RelX = BlockX % 16
-    local ChunkX = math.floor((BlockX - RelX) / 16)
+    local ChunkX = (BlockX - RelX) / 16
     local RelZ = BlockZ % 16
-    local ChunkZ = math.floor((BlockZ - RelZ) / 16)
+    local ChunkZ = (BlockZ - RelZ) / 16
     local RelY = BlockY
 
     local World = Player:GetWorld()
     local WorldName = World:GetName()
     local PlayerName = Player:GetName()
 
-    local DeobBlockArea = cBlockArea()
+
     local PlayerChunks = g_PlayerChunkCaches[PlayerName]
+    PlayerChunks.MiddleChunk:SetRelBlockTypeMeta(RelX, RelY, RelZ, 0, 0)
+
+    local DeobBlockArea = cBlockArea()
     DeobBlockArea:LoadFromSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
     DeobBlockArea:SetRelBlockTypeMeta(RelX, RelY, RelZ, 0, 0)
     DeobBlockArea:SaveToSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
