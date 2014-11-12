@@ -25,30 +25,30 @@ g_NumOres = #g_Ores
 
 
 g_RelativeOffset = {
-  {1, 0, 0},
-  {0, 1, 0},
-  {0, 0, 1},
-  {-1, 0, 0},
-  {0, -1, 0},
-  {0, 0, -1},
-  {2, 0, 0},
-  {0, 2, 0},
-  {0, 0, 2},
-  {-2, 0, 0},
-  {0, -2, 0},
-  {0, 0, -2},
-  {1, 1, 0},
-  {1, -1, 0},
-  {-1, 1, 0},
-  {-1, -1, 0},
-  {0, 1, 1},
-  {0, -1, 1},
-  {0, 1, -1},
-  {0, -1, -1},
-  {1, 0, 1},
-  {-1, 0, 1},
-  {1, 0, -1},
-  {-1, 0, -1}
+	{1, 0, 0},
+	{0, 1, 0},
+	{0, 0, 1},
+	{-1, 0, 0},
+	{0, -1, 0},
+	{0, 0, -1},
+	{2, 0, 0},
+	{0, 2, 0},
+	{0, 0, 2},
+	{-2, 0, 0},
+	{0, -2, 0},
+	{0, 0, -2},
+	{1, 1, 0},
+	{1, -1, 0},
+	{-1, 1, 0},
+	{-1, -1, 0},
+	{0, 1, 1},
+	{0, -1, 1},
+	{0, 1, -1},
+	{0, -1, -1},
+	{1, 0, 1},
+	{-1, 0, 1},
+	{1, 0, -1},
+	{-1, 0, -1}
 }
 
 g_NumRelativeOffset = #g_RelativeOffset
@@ -80,16 +80,16 @@ function Initialize(Plugin)
 	Plugin:SetName("SphinxOres")
 	Plugin:SetVersion(1)
 
-  cFile:CreateFolder(PLUGFOLDER)
-  cFile:CreateFolder(SCHEMFOLDER)
+	cFile:CreateFolder(PLUGFOLDER)
+	cFile:CreateFolder(SCHEMFOLDER)
 
 
 
 	-- Hooks
-  cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
-  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
-  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
-  cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_PLACING_BLOCK, OnPlayerPlacingBlock)
+	cPluginManager.AddHook(cPluginManager.HOOK_CHUNK_GENERATED, OnChunkGenerated)
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_BREAKING_BLOCK, OnPlayerBreakingBlock)
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING, OnPlayerMoving)
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_PLACING_BLOCK, OnPlayerPlacingBlock)
 
 	PLUGIN = Plugin -- NOTE: only needed if you want OnDisable() to use GetName() or something like that
 
@@ -112,7 +112,7 @@ end
 
 
 function GetSchematicFileName(WorldName, ChunkX, ChunkZ)
-  return SCHEMFOLDER .. "/" .. WorldName .. "/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic"
+	return SCHEMFOLDER .. "/" .. WorldName .. "/CHUNK#" .. ChunkX .. "#" .. ChunkZ .. ".schematic"
 end
 
 
@@ -120,7 +120,7 @@ end
 
 
 function IsChunkGenerated(ChunkX, ChunkZ, WorldName)
-  return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
+	return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
 end
 
 
@@ -128,19 +128,20 @@ end
 
 
 function ChunkHasAllDirectNeigborsGenerated(ChunkX, ChunkZ, WorldName)
-  if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) and
-      IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
-      IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) and
-      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) and
-      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName) and
-      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) and
-      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName)
-  then
-    return true
-  else
-    return false
-  end
+	if
+		IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) and
+		IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) and
+		IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) and
+		IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) and
+		IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) and
+		IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName) and
+		IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) and
+		IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName)
+	then
+		return true
+	else
+		return false
+	end
 end
 
 
@@ -148,17 +149,18 @@ end
 
 
 function ChunkHasAnyDirectNeigborGenerated(ChunkX, ChunkZ, WorldName)
-  if  IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) or
-      IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) or
-      IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) or
-      IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) or
-      IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) or
-      IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName) or
-      IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) or
-      IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName)
-  then
-    return true
-  else
-    return false
-  end
+	if
+		IsChunkGenerated(ChunkX + 1, ChunkZ, WorldName) or
+		IsChunkGenerated(ChunkX - 1, ChunkZ, WorldName) or
+		IsChunkGenerated(ChunkX, ChunkZ + 1, WorldName) or
+		IsChunkGenerated(ChunkX, ChunkZ - 1, WorldName) or
+		IsChunkGenerated(ChunkX - 1, ChunkZ - 1, WorldName) or
+		IsChunkGenerated(ChunkX + 1, ChunkZ - 1, WorldName) or
+		IsChunkGenerated(ChunkX - 1, ChunkZ + 1, WorldName) or
+		IsChunkGenerated(ChunkX + 1, ChunkZ + 1, WorldName)
+	then
+		return true
+	else
+		return false
+	end
 end
