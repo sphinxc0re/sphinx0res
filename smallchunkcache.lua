@@ -11,7 +11,7 @@ cSmallChunkCache = {}
 
 
 function cSmallChunkCache:new(a_Obj)
-	a_Obj = a_Obj or {}
+	local a_Obj = a_Obj or {}
 	setmetatable(a_Obj, cSmallChunkCache)
 	self.__index = self
 
