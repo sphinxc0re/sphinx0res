@@ -27,7 +27,29 @@ function Deobfuscate(Player, BlockX, BlockY, BlockZ, BlockFace, BlockType, Block
 	DeobBlockArea:SaveToSchematicFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
 
 	for i=1, g_NumRelativeOffset do
-		World:SetBlock(BlockX + g_RelativeOffset[i][1], BlockY + g_RelativeOffset[i][2], BlockZ + g_RelativeOffset[i][3], GetDeopBlockType(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName, PlayerChunks), GetDeopBlockMeta(RelX + g_RelativeOffset[i][1], RelY + g_RelativeOffset[i][2], RelZ + g_RelativeOffset[i][3], ChunkX, ChunkZ, WorldName, PlayerChunks))
+		World:SetBlock(
+			BlockX + g_RelativeOffset[i][1],
+			BlockY + g_RelativeOffset[i][2],
+			BlockZ + g_RelativeOffset[i][3],
+			GetDeopBlockType(
+				RelX + g_RelativeOffset[i][1],
+				RelY + g_RelativeOffset[i][2],
+				RelZ + g_RelativeOffset[i][3],
+				ChunkX,
+				ChunkZ,
+				WorldName,
+				PlayerChunks
+				),
+			GetDeopBlockMeta(
+				RelX + g_RelativeOffset[i][1],
+				RelY + g_RelativeOffset[i][2],
+				RelZ + g_RelativeOffset[i][3],
+				ChunkX,
+				ChunkZ,
+				WorldName,
+				PlayerChunks
+				)
+			)
 	end
 end
 
