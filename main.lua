@@ -120,7 +120,7 @@ end
 
 
 function IsChunkGenerated(ChunkX, ChunkZ, WorldName)
-	return cFile:Exists(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
+	return cFile:isFile(GetSchematicFileName(WorldName, ChunkX, ChunkZ))
 end
 
 

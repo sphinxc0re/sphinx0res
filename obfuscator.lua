@@ -88,7 +88,7 @@ end
 
 
 function IsObfuscated(WorldName, ChunkX, ChunkZ)
-	return cFile:Exists(SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
+	return cFile:isFile(SCHEMFOLDER .. "/" .. WorldName .. "/_OBCHNK#" .. ChunkX .. "#" .. ChunkZ)
 end
 
 
