@@ -1,6 +1,6 @@
 -------------------------------------------------------
 -- SphinxOres - Because the Sphinx hides it's treasure!
--- An orebfuscator for MCServer
+-- An orebfuscator for Cuberite
 -------------------------------------------------------
 
 

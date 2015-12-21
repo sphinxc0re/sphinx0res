@@ -35,7 +35,7 @@ end
 
 
 
-function cSmallChunkCache:NewFromChunkPos(a_world, a_chunkX, a_chunkZ)
+function cSmallChunkCache.NewFromChunkPos(a_world, a_chunkX, a_chunkZ)
 	local a_Obj = cSmallChunkCache:new()
 	local WorldName = a_world:GetName()
 	a_Obj.OriginX = a_chunkX
