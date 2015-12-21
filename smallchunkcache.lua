@@ -5,6 +5,7 @@
 
 
 cSmallChunkCache = {}
+cSmallChunkCache.__index = cSmallChunkCache
 
 
 
@@ -13,7 +14,6 @@ cSmallChunkCache = {}
 function cSmallChunkCache:new(a_Obj)
 	local a_Obj = a_Obj or {}
 	setmetatable(a_Obj, cSmallChunkCache)
-	self.__index = self
 
 	-- Initialize the object members:
 	a_Obj.MiddleChunk = cBlockArea()
