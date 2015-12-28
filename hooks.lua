@@ -43,8 +43,8 @@ function OnPlayerMoving(Player, OldPosition, NewPosition)
 
 
 	if g_PlayerChunkCaches[PlayerName] == nil then
-		g_PlayerChunkCaches[PlayerName] = cSmallChunkCache:NewFromChunkPos(World, ChunkX, ChunkZ)
+		g_PlayerChunkCaches[PlayerName] = cSmallChunkCache.NewFromChunkPos(World, ChunkX, ChunkZ)
 	elseif g_PlayerChunkCaches[PlayerName].OriginX ~= ChunkX or g_PlayerChunkCaches[PlayerName].OriginY ~= ChunkY then
-		g_PlayerChunkCaches[PlayerName]:NewFromChunkPos(World, ChunkX, ChunkZ)
+		g_PlayerChunkCaches[PlayerName].NewFromChunkPos(World, ChunkX, ChunkZ)
 	end
 end
