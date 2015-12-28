@@ -6,7 +6,7 @@
 
 
 function OnChunkGenerated(World, ChunkX, ChunkZ, ChunkDesc)
-	ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
+	return ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
 end
 
 

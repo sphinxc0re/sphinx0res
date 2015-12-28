@@ -56,7 +56,7 @@ function ObfuscateChunk(World, ChunkX, ChunkZ, ChunkDesc)
 			World:RegenerateChunk(ChunkX - 1, ChunkZ + 1)
 		end
 
-		return
+		return true
 	end
 
 	local SmallChunkCache = cSmallChunkCache.NewFromChunkPos(World, ChunkX, ChunkZ)
