@@ -1,0 +1,8 @@
+title: SphinxOres
+description: Because the Sphinx hides it's treasure!
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
