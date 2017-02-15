@@ -1,5 +1,5 @@
 -------------------------------------------------------
--- SphinxOres - Because the Sphinx hides it's treasure!
+-- sphinx0res - Because the Sphinx hides it's treasure!
 -- An orebfuscator for Cuberite
 -------------------------------------------------------
 
@@ -69,7 +69,7 @@ PLUGIN = nil
 
 
 
-PLUGFOLDER = "SphinxOres"
+PLUGFOLDER = "sphinx0res"
 SCHEMFOLDER = PLUGFOLDER .. "/Schema"
 
 
@@ -77,7 +77,7 @@ SCHEMFOLDER = PLUGFOLDER .. "/Schema"
 
 
 function Initialize(Plugin)
-	Plugin:SetName("SphinxOres")
+	Plugin:SetName("sphinx0res")
 	Plugin:SetVersion(1)
 
 	cFile:CreateFolder(PLUGFOLDER)
